@@ -1,0 +1,11 @@
+{
+  "name": "masar-backend",
+  "version": "1.0.0",
+  "description": "backend server for masar",
+  "main": "index.js",
+  "author": "Muhammad Alif Arifin <m.alif.arifin@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
