@@ -14,18 +14,36 @@ class mongoDB {
 					cb(null, conn);
 				});
             }, 
-            // (conn, cb) => {
-            //     let db = conn.db(dbName);
-			// 	db.createCollection('tipsntricks', (err, result) => {
-			// 		if (err) {
-			// 			return cb(err);					
-			// 		}
-			// 		cb(null, conn);
-			// 	});
-            // },
+            (conn, cb) => {
+                let db = conn.db(dbName);
+				db.createCollection('accounts', (err, result) => {
+					if (err) {
+						return cb(err);					
+					}
+					cb(null, conn);
+				});
+            },
+            (conn, cb) => {
+                let db = conn.db(dbName);
+				db.createCollection('products', (err, result) => {
+					if (err) {
+						return cb(err);					
+					}
+					cb(null, conn);
+				});
+            },
+            (conn, cb) => {
+                let db = conn.db(dbName);
+				db.createCollection('purchases', (err, result) => {
+					if (err) {
+						return cb(err);					
+					}
+					cb(null, conn);
+				});
+            },
 			(conn, cb) => {
 				let db = conn.db(dbName);
-				db.createCollection('recipes_detail', (err, result) => {
+				db.createCollection('carts', (err, result) => {
 					if (err) {
 						return cb(err);					
 					}

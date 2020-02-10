@@ -2,10 +2,9 @@ const MongoClient = require('mongodb').MongoClient;
 const url = process.env.MONGODB_URL
 
 var option = {
-  reconnectTries: Number.MAX_VALUE,
-  reconnectInterval: 1000,
   poolSize : 40,
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 };
 
 function MongoPool(){}
