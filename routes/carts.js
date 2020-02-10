@@ -25,7 +25,7 @@ router.route("/")
         let query = {
           username
         }
-        db.collection("profiles").findOne(query, (err, result) => {
+        db.collection("carts").findOne(query, (err, result) => {
           if (err) return cb(err);
 
           status = true;
@@ -49,9 +49,7 @@ router.route("/")
 router.route("/")
   .post((req, res, next) => {
     let username = req.body.username;
-    let name = req.body.name;
-    let address = req.body.address;
-    let phone = req.body.phone;
+    let carts = req.body.cart;
 
     let status = false;
     let httpStatus = 400;
@@ -60,16 +58,8 @@ router.route("/")
       return res.status(httpStatus).json({status, message: 'Username is invalid'});
     }
 
-    if (name === undefined || name === '' || typeof(name) !== 'array') {
+    if (carts === undefined || carts === '' || typeof(carts) !== 'array') {
       return res.status(httpStatus).json({status, message: 'Name is invalid'});
-    }
-
-    if (address === undefined || address === '' || typeof(address) !== 'array') {
-      return res.status(httpStatus).json({status, message: 'Address is invalid'});
-    }
-
-    if (phone === undefined || phone === '' || typeof(phone) !== 'string') {
-      return res.status(httpStatus).json({status, message: 'Phone is invalid'});
     }
 
     async.waterfall([
@@ -92,35 +82,30 @@ router.route("/")
             };
 
             let newValues = {
-              username,
-              name,
-              address,
-              phone
+              $set: {carts}
             }
-            db.collection("profiles").updateOne(query, newValues, (err, result) => {
+            db.collection("carts").updateOne(query, newValues, (err, result) => {
               if (err) return cb(err);
 
               status = true;
 
               httpStatus = 200
-              let message = "Success update profile"
+              let message = "Success update carts"
               return cb(message)
             });
           } else {
             query = {
               username,
-              name,
-              address,
-              phone
+              carts
             };
 
-            db.collection("profiles").insertOne(query, (err, result) => {
+            db.collection("carts").insertOne(query, (err, result) => {
               if (err) return cb(err);
 
               status = true;
 
               httpStatus = 200
-              let message = "Success insert profile"
+              let message = "Success insert carts"
               return cb(message)
             });
           }

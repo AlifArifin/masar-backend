@@ -92,10 +92,11 @@ router.route("/")
             };
 
             let newValues = {
-              username,
-              name,
-              address,
-              phone
+              $set: {
+                name,
+                address,
+                phone
+              }
             }
             db.collection("profiles").updateOne(query, newValues, (err, result) => {
               if (err) return cb(err);

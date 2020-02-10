@@ -47,8 +47,6 @@ router.route("/login")
             return cb(message)
           }
 
-          console.log(result.data)
-
           httpStatus = 200
           let message = "Success"
           let data = {username: username}
@@ -89,9 +87,13 @@ router.route("/register")
         db.collection("accounts").findOne(query, (err, result) => {
           if (err) return cb(err);
 
+          console.log(result)
+
           status = true;
 
           if (result != undefined) {
+            console.log("lala")
+
             let message = "Username is registered"
             return cb(message)
           }

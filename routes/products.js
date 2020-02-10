@@ -4,6 +4,7 @@ const async = require('async');
 const MongoPool = require('../models/mongoPool');
 const dbName = process.env.DB_NAME;
 const fs = require('fs-extra');
+var ObjectId = require('mongodb').ObjectID;
 
 router.route("/search")
   .get((req, res, next) => {
@@ -24,9 +25,9 @@ router.route("/search")
       },
       (db, cb) => {
         let query = {
-          name: {$regex: "/" + q + "/i"}
+          name: {$regex: q, $options: 'i'}
         }
-        db.collection("products").find(query, (err, result) => {
+        db.collection("products").find(query).toArray((err, result) => {
           if (err) return cb(err);
 
           status = true;
@@ -61,11 +62,14 @@ router.route("/searchId")
         }) 
       },
       (db, cb) => {
+        var oId = new ObjectId(id)
         let query = {
-          _id = ObjectId(id)
+          _id : oId
         }
         db.collection("products").findOne(query, (err, result) => {
           if (err) return cb(err);
+
+          console.log(result)
 
           status = true;
 
